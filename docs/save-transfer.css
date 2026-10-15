@@ -1,0 +1,9 @@
+/* Scope all tablet adjustments to the new transfer panel. */
+#celio-transfer{padding:16px;border:1px solid #40526e;border-radius:14px;margin:0 0 18px;min-width:0}
+#celio-transfer h3{margin-top:0}#celio-transfer p{line-height:1.7;overflow-wrap:anywhere;font-size:13px}
+#celio-transfer .transfer-actions{display:grid;gap:10px;grid-template-columns:1fr}
+#celio-transfer button{min-height:48px;width:100%;white-space:normal;line-height:1.5;touch-action:manipulation}
+#celio-transfer .transfer-note{font-size:12px;opacity:.8}#celio-transfer [hidden]{display:none!important}
+#transfer-backup,#transfer-download{margin-top:10px}#transfer-status{font-weight:600}
+@media(min-width:600px){#celio-transfer .transfer-actions{grid-template-columns:1fr 1fr}}
+@media(pointer:coarse){#celio-transfer summary{min-height:44px;display:flex;align-items:center}}
