@@ -1,6 +1,6 @@
 /* Celio Pocket: fixed program files only. Never reads ROM/SAV during installation. */
 (()=>{'use strict';
-  const SRC=self.CELIO_SOURCE, APP_REV='ipad-icloud-v2';
+  const SRC=self.CELIO_SOURCE, APP_REV='viewport-v3';
   const ROOT=new URL('./',location.href),toLocal=path=>new URL(path,ROOT).href;
   const CACHE_NAME='celio-game-'+SRC.revision+'-'+APP_REV,READY=toLocal('.celio-ready'),GAME='game.html';
   const files=SRC.files.filter(([path])=>!['sw.js','manifest.webmanifest'].includes(path));
@@ -44,7 +44,7 @@
       "img-src 'self' data: blob:","style-src 'self' 'unsafe-inline'","font-src 'self'",
       "worker-src 'self' blob:","manifest-src 'self'","media-src 'self' blob:",
       "object-src 'none'","frame-src 'none'","base-uri 'none'","form-action 'none'"].join('; ');
-    const localStyle='<link rel="stylesheet" href="save-transfer.css"><style id="celio-local-mode">'+
+    const localStyle='<link rel="stylesheet" href="save-transfer.css"><link rel="stylesheet" href="viewport-fit.css"><script defer src="viewport-fit.js"></script><style id="celio-local-mode">'+
       '#tab-celio,#panel-celio,#link-dialog,#link-hud,#link-open,#link-hud-settings,#link-choose-online,'+
       '#link-choose-usb,#link-server,#link-host,#link-join,#link-usb-start,#link-settings-open,'+
       '#offline-prepare,#cache-clear,#cache-clear-main{display:none!important}'+
@@ -58,6 +58,11 @@
     const anchor='getGame:() => ({loaded,bytes:romBytes,key:romKey,name,cheats:cheats.length>0}),';
     if(src.split(anchor).length!==2)throw new Error('セーブ受け渡し用の接続位置が一致しません。');
     return src.replace(anchor,anchor.replace('cheats:','blocked:romLoading||quickBusy||backupBusy,cheats:'));
+  }
+  function transformSkin(src){
+    const anchor="const availableHeight=fullscreen?Math.max(1,stage.clientHeight-header):Math.max(160,innerHeight-(play.getBoundingClientRect().top+scrollY)-toolbar-bottom-2);";
+    if(src.split(anchor).length!==2)throw new Error('スキンの表示領域を調整する位置が一致しません。');
+    return src.replace(anchor,'const availableHeight=Math.max(1,stage.clientHeight-header);');
   }
   const disabledLink='/* MPL-2.0. Native file handoff only; no online/USB link. */\n'+
     'window.createLinkSession=function(api){return window.createCelioSaveTransfer(api);};\n';
@@ -75,7 +80,7 @@
     const response=await fetch(SRC.rawBase+path,{method:'GET',mode:'cors',credentials:'omit',redirect:'error',cache:'no-store'});
     if(!response.ok||response.type!=='cors')throw new Error(path+' の取得に失敗しました。');
     const bytes=new Uint8Array(await response.arrayBuffer());await checkBlob(bytes,sha,n);
-    const name=path==='index.html'?GAME:path,data=path==='index.html'?transformHTML(new TextDecoder().decode(bytes)):path==='app.js'?transformCore(new TextDecoder().decode(bytes)):bytes;
+    const name=path==='index.html'?GAME:path,data=path==='index.html'?transformHTML(new TextDecoder().decode(bytes)):path==='app.js'?transformCore(new TextDecoder().decode(bytes)):path==='skins.js'?transformSkin(new TextDecoder().decode(bytes)):bytes;
     await cache.put(toLocal(name),new Response(data,{headers:{'Content-Type':type(name),'X-Content-Type-Options':'nosniff'}}));
   }
   async function run(){

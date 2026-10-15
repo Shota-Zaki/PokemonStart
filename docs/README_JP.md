@@ -1,9 +1,14 @@
 # Celio Pocket — iPhone・iPad共通オフラインPWA
 
-アプリ版: `ipad-icloud-v2` / 2026-10-15。
+アプリ版: `viewport-v3` / 2026-10-16。
 公開元: `liru55/mgba-celio-web` の固定配信コミット `8d4b304080d768ea32aaa5f155fc3aa81f6300f9`。
 MPL-2.0。元のクレジット・ライセンスを保持。ROM・個人セーブ・クイックセーブはRepositoryにも配信物にも追加しない。
 元の `mgba-celio-local.astralpike7.chatgpt.site` 自体の完全複製ではなく、確認できた上流版を基にする。
+
+## 縦画面・横画面の表示（v3）
+
+縦画面はゲームの下に操作ボタン、横画面は左右・下側へ配置し、画面全体のスクロールなしで収める。設定・使い方は「項目」の選択と「前へ／次へ」で切り替える。メモリビューアは設定の「メモリ」へ移動した。
+更新の詳細、修正前後、39件の表示テストと実機未検証の範囲は `VIEWPORT_LAYOUT.md`。セーブ処理やiCloud受け渡し形式は変更していない。
 
 ## 初回・更新
 
@@ -54,12 +59,12 @@ window.createLinkSession=function(api){return window.createCelioSaveTransfer(api
 ```
 読み込みや保存が進行中なら受け渡しを止めるための情報だけを追加。ゲームエンジン自体は変えない。固定ソースで接続位置が一致しなければインストールを停止する。
 
-`docs/save-transfer.css` は共有パネルだけを調整し、600px以上ではボタンを2列、狭い画面は1列、操作領域は最低48pxとする。`docs/install.js` / `docs/sw.js` のキャッシュキーに `ipad-icloud-v2` を追加し、旧インストールにも改修を届ける。
+`docs/save-transfer.css` は共有パネルだけを調整し、600px以上ではボタンを2列、狭い画面は1列、操作領域は最低48pxとする。`docs/install.js` / `docs/sw.js` のキャッシュキーにはアプリ版を付加する。今回の縦横表示修正は `viewport-v3` で配信し、旧版 `ipad-icloud-v2` のインストールにも更新を届ける。
 
 ## 公開・検証
 
 変更先は `Shota-Zaki/PokemonStart` の `work`、配信対象は `/docs`。`main`は変更しない。Pages公開設定は別であり、今回のコード反映だけで公開済みとは扱わない。GitHubのSettings → Pagesで指定済みなら、その設定画面に表示される公開URLを利用する。
-検証内容と制約は `TEST_RESULTS_ICLOUD.md`。iPhone/iPad実機、Safariの実共有シート、実際のiCloud同期、64MiB実ROMの起動とセーブ往復は未検証。
+今回の検証内容は `VIEWPORT_LAYOUT.md`、前版のセーブ受け渡し検証記録は `TEST_RESULTS_ICLOUD.md`。iPhone/iPad実機、Safariの実共有シート、実際のiCloud同期、64MiB実ROMの起動とセーブ往復は未検証。
 
 一次情報:
 - https://support.apple.com/ja-jp/118443

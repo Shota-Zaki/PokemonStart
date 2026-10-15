@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Celio layout fixture</title></head><body><main class="app-shell">
+<header class="app-header"><h1>mGBA <span>celio</span><small>WEB EMULATOR</small></h1><span class="badge">パッド未接続</span><button id="about-open">?</button></header>
+<p id="status" role="status" class="game-title">PokemonStart_v0.42.1.gba</p>
+<input id="rom" type="file" hidden><input id="save" type="file" hidden>
+<div class="play has-rom"><div class="screen-viewport"><canvas id="screen" width="240" height="160" aria-label="ゲーム画面"></canvas><button id="pause-banner" hidden><strong>一時停止中</strong><span>タップして再開</span></button></div><div id="welcome"><span class="welcome-kicker">YOUR GAMES. YOUR DEVICE.</span><strong>mGBA <span>celio</span></strong><p>端末のROMを選んで、プレイをはじめる。</p><button id="welcome-open">ROMを選ぶ</button><button id="rom-library-open">保存済みROMから選ぶ</button><small>ROMはこの端末内だけで処理します。<br>サーバーへアップロードしません。</small></div>
+<div class="gamepad"><div class="shoulders"><button class="shoulder-l" data-key="9">L</button><button class="shoulder-r" data-key="8">R</button></div>
+<div class="primary"><div class="dpad"><button class="up" data-key="6">↑</button><button class="left" data-key="5">←</button><button class="down" data-key="7">↓</button><button class="right" data-key="4">→</button></div><div class="ab"><button data-key="1">B</button><button data-key="0">A</button></div></div>
+<div class="system"><button data-key="2">SELECT</button><button data-key="3">START</button></div></div>
+<nav class="emulator-toolbar"><div class="bar-segment bar-files"><button id="open">ROM</button><button id="file-menu-open">ファイル</button></div><div class="bar-segment bar-game"><button id="pause">一時停止</button><div id="quick-actions"><span class="quick-action"><button id="speed-toggle">倍速 OFF</button></span><span class="quick-action"><button id="quick-state-save">保存 1</button></span><span class="quick-action"><button id="quick-state-load">ロード 1</button></span></div><button id="toolbar-hide">⌄</button></div><div class="bar-segment bar-system"><button id="link-open" hidden>通信</button><details id="audio-popover" class="audio-popover"><summary>音量</summary><div class="audio-popover-panel"><input id="volume-main" type="range"><button id="mute-main">音を消す</button></div></details><button id="settings-open">設定</button><button id="fullscreen">全画面</button></div></nav>
+<div id="edit-bar" hidden><span>ボタンの配置を調整</span><button>初期化</button><button>完了</button></div></div>
+<section class="memory-panel"><details open><summary>メモリビューア</summary><p>表示中のゲームのメモリを16進数と文字で確認します。</p><div class="memory-scroll"><pre id="memory-dump"></pre></div></details></section>
+<dialog id="settings"><div class="dialog-head"><h2>設定</h2><button id="settings-close">閉じる</button></div><nav class="tabs"><button data-tab="save" aria-selected="true">ファイル</button><button data-tab="controls">操作</button><button data-tab="general">一般</button><button data-tab="celio">通信</button></nav>
+<section id="panel-save" role="tabpanel"><h3>セーブ</h3><label class="row"><input type="checkbox">自動保存</label><button id="export">通常セーブを書き出す</button><button id="import">通常セーブを読み込む</button></section>
+<section id="panel-controls" role="tabpanel" hidden><h3>操作</h3><div class="mapping-grid"></div><details><summary>詳細な操作方法</summary><p>キー割り当てを変更できます。</p></details></section>
+<section id="panel-general" role="tabpanel" hidden><h3>オフライン</h3><p>端末のファイルを使用します。</p></section>
+<section id="panel-celio" role="tabpanel" hidden></section></dialog><footer class="notice">ROMは端末内だけで処理</footer></main>
+<script>
+const $=id=>document.getElementById(id);
+function tab(name){for(const t of document.querySelectorAll('.tabs [data-tab]')){t.setAttribute('aria-selected',String(t.dataset.tab===name));$('panel-'+t.dataset.tab).hidden=t.dataset.tab!==name;}}
+$('settings-open').onclick=()=>$('settings').showModal();$('settings-close').onclick=()=>$('settings').close();$('file-menu-open').onclick=()=>{tab('save');$('settings').showModal()};
+$('toolbar-hide').onclick=()=>document.querySelector('.play').classList.add('toolbar-hidden');
+for(const key of ['A','B','L','R','START','SELECT','上','下','左','右']){const l=document.createElement('label');l.textContent=key;const input=document.createElement('input');input.value=key;l.append(input);document.querySelector('.mapping-grid').append(l)}
+$('memory-dump').textContent=Array.from({length:32},(_,i)=>`020000${i.toString(16).padStart(2,'0')}  00 FF 01 20  00 FF 01 20  00 FF 01 20`).join('\n');
+const c=$('screen').getContext('2d');c.fillStyle='#345878';c.fillRect(0,0,240,160);c.fillStyle='white';c.font='16px system-ui';c.fillText('240 × 160',65,82);
+</script></body></html>

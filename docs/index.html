@@ -10,6 +10,8 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://raw.githubusercontent.com; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="install.css">
+<link rel="stylesheet" href="viewport-fit.css">
+<script defer src="viewport-fit.js"></script>
 <title>Celio Pocket — iPhone・iPad オフライン版</title>
 <script defer src="assets.js"></script>
 <script defer src="install.js"></script>
@@ -20,5 +22,5 @@
 <section class="panel"><div class="panelHead"><h2>オフラインの準備</h2><strong id="badge">確認中</strong></div><div class="meter" role="progressbar" aria-label="保存進捗" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="meter"><div id="bar"></div></div><p id="status" role="status" aria-live="polite">ブラウザの保存機能を確認しています…</p><p id="meta" class="muted">初回と版更新時のみインターネット接続が必要です。</p><button type="button" id="install" disabled>この端末にアプリを保存</button><a href="game.html" id="play" class="play" hidden>ゲームを起動する <span aria-hidden="true">↗</span></a><button type="button" id="check" class="link" disabled>保存状態を再確認</button></section>
 <section class="steps"><h2>iPhone・iPadで使う手順</h2><ol><li><b>① それぞれのホーム画面に追加</b><p>両端末のSafariで共有 →「ホーム画面に追加」→ Webアプリとして追加。</p></li><li><b>② 各端末にアプリを保存</b><p>ホーム画面のアイコンから開き、上のボタンで保存。旧版のセーブ・ROMは削除しません。</p></li><li><b>③ 同じROMと共有セーブを読み込む</b><p>同じバージョンのROMを開き、「ファイル」→「iCloud Driveから読込」で最新の.savを選択。</p></li><li><b>④ 遊び終えたら共有用に書き出す</b><p>ゲーム内でレポート →「iCloud Driveへ書出」→「ファイルに保存」→ iCloud Driveの同じフォルダ。別端末への反映をファイルAppで確認してから切り替えます。</p></li><li><b>⑤ オフラインでプレイ</b><p>必要なデータを端末に保存してから機内モード・Wi-Fiオフで起動確認。iCloudとの受け渡し時には通信を戻します。</p></li></ol></section>
 <details><summary>安全性・バックアップ</summary><p>オンライン交換・USB通信は無効です。アプリはROM・SAVを自動アップロードしません。ただし手動でiCloud Driveへ保存した.savは、Appleのクラウドへ同期されます。完全に通信を切ったまま端末間同期することはできません。</p><p>読み込んだセーブは端末内のコピーです。遊ぶだけではiCloudのファイルは更新されません。2台で同時に進めず、書き出し・反映確認・読み込みの順で切り替えてください。クイックセーブは端末別です。</p><p>読込前の通常セーブを端末内に1世代退避します。Safariのデータ削除やストレージの問題に備え、.savを別途ファイルへ保管してください。共有画面の終了だけでは、保存先やiCloud同期完了をアプリから確認できません。</p><p>公開元は <a href="https://github.com/liru55/mgba-celio-web" rel="noopener noreferrer">mGBA Celio Web</a>（MPL-2.0）です。ROM・個人セーブは配信しません。ブラウザ・OSの通信はアプリとは別です。</p></details>
-<footer>Celio Pocket — iPhone / iPad · ipad-icloud-v2</footer>
+<footer>Celio Pocket — iPhone / iPad · viewport-v3</footer>
 </main></body></html>

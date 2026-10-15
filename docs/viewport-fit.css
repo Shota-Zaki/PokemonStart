@@ -1,0 +1,110 @@
+/* MPL-2.0. Fit the app to the usable viewport; long settings use pages, not clipping. */
+:root{--cp-vh:100dvh;--cp-vw:100vw;--cp-top:0px;--cp-left:0px;--cp-safe-t:env(safe-area-inset-top,0px);--cp-safe-r:env(safe-area-inset-right,0px);--cp-safe-b:env(safe-area-inset-bottom,0px);--cp-safe-l:env(safe-area-inset-left,0px)}
+.cp-fit [hidden]{display:none!important}
+html.cp-fit,html.cp-fit body{width:100%;height:100%;min-height:0;margin:0;overflow:hidden;overscroll-behavior:none}
+.cp-fit body{position:fixed;top:var(--cp-top);left:var(--cp-left);width:var(--cp-vw);height:var(--cp-vh);padding:max(4px,var(--cp-safe-t)) max(4px,var(--cp-safe-r)) max(4px,var(--cp-safe-b)) max(4px,var(--cp-safe-l));box-sizing:border-box}
+.cp-fit .app-shell{width:100%;height:100%;min-height:0;max-width:none;display:grid;grid-template-rows:44px 18px minmax(0,1fr);gap:0;margin:0}
+.cp-fit .app-header{min-height:0;height:44px;gap:8px;overflow:hidden}
+.cp-fit .app-header h1{font-size:15px;min-width:0}.cp-fit .app-header h1 small{display:none}
+.cp-fit .app-header .badge{max-width:36%;overflow:hidden;text-overflow:ellipsis}
+.cp-fit .game-title{grid-row:2;margin:0;font-size:11px;line-height:18px;min-width:0;max-width:100%}
+.cp-fit .app-shell>.notice{display:none}
+.cp-fit .app-shell>.play,.cp-game .play.has-rom:not(.immersive):not(.overlay):not(.editing),.cp-game .play:not(.has-rom),.cp-game .play.immersive{
+ grid-row:3;width:100%;height:100%;min-height:0;max-height:none;margin:0;padding:0;box-sizing:border-box;
+ grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) 240px auto;border-radius:10px;
+}
+.cp-game .play .screen-viewport,.cp-game .play.has-rom:not(.immersive):not(.overlay):not(.editing) .screen-viewport{grid-row:1;grid-column:1;min-width:0;min-height:0;width:100%;height:100%;aspect-ratio:auto;padding:4px}
+.cp-game .play #screen{min-width:0;min-height:0;width:100%;height:100%;object-fit:contain}
+.cp-game .play .gamepad{grid-row:2;grid-column:1;width:min(560px,100%);height:240px;min-height:0;padding:0;position:relative;inset:auto;margin:auto;pointer-events:none}
+.cp-game .play .gamepad .primary{display:contents}
+.cp-game .play .gamepad .shoulders{display:contents}
+.cp-game .play .gamepad .dpad{position:absolute;left:12px;top:48px;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(3,44px);gap:2px;transform:none;pointer-events:auto}
+.cp-game .play .gamepad .dpad.linked{gap:0}
+.cp-game .play .gamepad .ab{position:absolute;left:auto;right:12px;top:94px;gap:10px;transform:none;pointer-events:auto}
+.cp-game .play .gamepad .ab button{width:56px;height:56px;min-height:56px}
+.cp-game .play .gamepad .shoulder-l,.cp-game .play .gamepad .shoulder-r{top:0;left:12px;right:auto;width:72px;min-height:44px;height:44px;transform:none;pointer-events:auto}
+.cp-game .play .gamepad .shoulder-r{left:auto;right:12px}
+.cp-game .play .gamepad .system{left:50%;right:auto;top:auto;bottom:0;transform:translateX(-50%);gap:6px;pointer-events:auto}
+.cp-game .play .gamepad .system button{min-height:44px;height:44px;min-width:64px;padding:4px;font-size:10px}
+.cp-game .play .emulator-toolbar{grid-row:3;grid-column:1;align-self:end;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-auto-rows:44px;gap:4px;padding:4px;min-width:0;width:100%;height:auto;box-sizing:border-box}
+.cp-fit .emulator-toolbar .bar-segment,.cp-fit .emulator-toolbar #quick-actions,.cp-fit .emulator-toolbar .quick-action:not(.custom-position){display:contents}
+.cp-fit .emulator-toolbar .bar-segment{border:0;padding:0;margin:0}
+.cp-fit .emulator-toolbar button,.cp-fit .emulator-toolbar .audio-popover summary{width:100%;min-width:0;min-height:44px;height:44px;margin:0;padding:3px;font-size:11px;white-space:normal;line-height:1.2;overflow-wrap:anywhere}
+.cp-fit .emulator-toolbar .audio-popover{min-width:0;margin:0}.cp-fit .audio-popover summary output{display:none}
+.cp-fit .audio-popover-panel{bottom:calc(var(--cp-tools,96px) + 4px);max-height:calc(100% - var(--cp-tools,96px) - 8px);max-width:calc(100% - 8px);right:4px;padding:8px}
+.cp-game .play #quick-message{bottom:calc(var(--cp-tools,96px) + 4px);max-width:calc(100% - 16px);overflow-wrap:anywhere}
+.cp-game .play #edit-bar{max-width:calc(100% - 12px);bottom:6px}
+.cp-game .play:not(.has-rom){grid-template-rows:minmax(0,1fr)}
+.cp-fit #welcome{gap:10px;padding:12px}.cp-fit #welcome strong{font-size:28px}.cp-fit #welcome p{font-size:12px}
+.cp-game .play.no-touch:not(.editing),.cp-game .play.touch-hidden:not(.editing),.cp-game .play.overlay,.cp-game .play.editing{grid-template-rows:minmax(0,1fr) auto!important}
+.cp-game .play.no-touch:not(.editing) .emulator-toolbar,.cp-game .play.touch-hidden:not(.editing) .emulator-toolbar,.cp-game .play.overlay .emulator-toolbar,.cp-game .play.editing .emulator-toolbar{grid-row:2}
+.cp-game .play.overlay .gamepad{position:absolute;grid-area:auto;inset:0 0 var(--cp-tools,96px);width:100%;height:auto}
+.cp-game .play.overlay .gamepad .dpad,.cp-game .play.overlay .gamepad .ab,.cp-game .play.overlay .gamepad .shoulder-l,.cp-game .play.overlay .gamepad .shoulder-r,.cp-game .play.overlay .gamepad .system{right:auto;bottom:auto;transform:translate(-50%,-50%) scale(var(--pad-scale,.75));opacity:var(--pad-opacity,.8)}
+.cp-game .play.overlay .gamepad .dpad{left:22%;top:64%}.cp-game .play.overlay .gamepad .ab{left:78%;top:64%}
+.cp-game .play.overlay .gamepad .shoulder-l{left:18%;top:18%}.cp-game .play.overlay .gamepad .shoulder-r{left:82%;top:18%}
+.cp-game .play.overlay .gamepad .system{left:50%;top:86%}
+.cp-game .play.has-rom.delta-skin{height:100%!important;min-height:0;max-height:none;grid-template-rows:minmax(0,1fr) auto!important}
+.cp-game .play.delta-skin .emulator-toolbar{grid-row:2;align-self:end}
+.cp-game .play.delta-skin .screen-viewport{width:auto;height:auto;aspect-ratio:auto;padding:0}
+.cp-game .play .skin-stage{min-width:0;min-height:0;max-height:100%}
+.cp-game .play.immersive:not(.delta-skin) .screen-viewport{padding-top:48px!important}
+.cp-fit body.expanded .play{position:fixed;inset:auto;top:var(--cp-top);left:var(--cp-left);width:var(--cp-vw);height:var(--cp-vh);padding:var(--cp-safe-t) var(--cp-safe-r) var(--cp-safe-b) var(--cp-safe-l)}
+@media(orientation:landscape){
+ .cp-fit .app-shell>.play,.cp-game .play.has-rom:not(.immersive):not(.overlay):not(.editing){grid-template-rows:minmax(0,1fr) auto}
+ .cp-game .play .emulator-toolbar{grid-row:2;grid-template-columns:repeat(10,minmax(0,1fr))}
+ .cp-game .play.has-rom:not(.delta-skin):not(.overlay):not(.editing) .screen-viewport{padding:4px 146px 52px}
+ .cp-game .play .gamepad{position:absolute;grid-area:auto;inset:0 0 var(--cp-tools,48px);width:100%;height:auto}
+ .cp-game .play:not(.overlay) .gamepad .dpad{left:8px;top:50%;transform:translateY(-50%)}
+ .cp-game .play:not(.overlay) .gamepad .ab{right:8px;top:50%;transform:translateY(-50%)}
+ .cp-game .play:not(.overlay) .gamepad .shoulder-l,.cp-game .play:not(.overlay) .gamepad .shoulder-r{top:auto;bottom:4px;width:44px;left:calc(50% - 128px);right:auto}
+ .cp-game .play:not(.overlay) .gamepad .shoulder-r{left:auto;right:calc(50% - 128px)}
+ .cp-game .play:not(.overlay) .gamepad .system{bottom:4px}
+ .cp-game .play.no-touch:not(.editing) .screen-viewport,.cp-game .play.touch-hidden:not(.editing) .screen-viewport{padding:4px!important}
+ .cp-fit #welcome .welcome-kicker{display:none}.cp-fit #welcome{gap:6px}.cp-fit #welcome strong{font-size:24px}
+}
+/* Native dialogs keep every option accessible via previous/next pages. */
+.cp-fit dialog.cp-dialog,.cp-fit #settings{width:calc(var(--cp-vw) - var(--cp-safe-l) - var(--cp-safe-r) - 8px);height:calc(var(--cp-vh) - var(--cp-safe-t) - var(--cp-safe-b) - 8px);max-width:1000px;max-height:none;min-height:0;position:fixed;top:calc(var(--cp-top) + var(--cp-safe-t) + 4px);bottom:auto;left:calc(var(--cp-left) + var(--cp-safe-l) + 4px);right:calc(100vw - var(--cp-left) - var(--cp-vw) + var(--cp-safe-r) + 4px);margin:0 auto;border:1px solid var(--border,#40526e);background:var(--surface,#17233b);color:var(--text,#eaf0ff);border-radius:12px;padding:0;overflow:hidden;box-sizing:border-box}
+.cp-fit #settings[open],.cp-fit dialog.cp-dialog[open]{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:48px 44px minmax(0,1fr)}
+.cp-fit .cp-dialog>.dialog-head,.cp-fit #settings>.dialog-head{grid-row:1;grid-column:1;padding:2px 10px;min-height:0;display:flex;align-items:center;justify-content:space-between}
+.cp-fit .dialog-head h2{font-size:16px;margin:0}.cp-fit .dialog-head button{width:auto;flex:0 0 auto;min-height:44px;padding:4px 12px}
+.cp-fit #settings>.tabs{display:none!important}
+.cp-fit .cp-section-select{grid-row:2;grid-column:1;display:flex;align-items:center;gap:8px;padding:0 10px;min-width:0}
+.cp-fit .cp-section-select select{flex:1;min-width:0;max-width:100%;height:40px;font-size:16px}
+.cp-fit #settings>[role=tabpanel],.cp-fit .cp-dialog>.cp-pages{grid-column:1;grid-row:3;min-width:0;min-height:0;padding:6px 10px 0;overflow:hidden}
+.cp-fit .cp-pages{display:grid;grid-template-rows:minmax(0,1fr) 48px;min-height:0;min-width:0}
+.cp-fit .cp-pages-window{min-width:0;min-height:0;overflow:hidden;overscroll-behavior:none}
+.cp-fit .cp-pages-content{width:100%;height:100%;columns:var(--cp-page-w,300px);column-gap:24px;column-fill:auto;overflow:visible;transition:none;overflow-wrap:anywhere}
+.cp-fit .cp-pages-content>*{break-inside:avoid-column;max-width:100%;box-sizing:border-box}
+.cp-fit .cp-pages-content h3{break-after:avoid-column}.cp-fit .cp-pages-content p{orphans:2;widows:2}
+.cp-fit .cp-pages-content input,.cp-fit .cp-pages-content select,.cp-fit .cp-pages-content textarea{min-width:0;max-width:100%;font-size:16px;box-sizing:border-box}
+.cp-fit .cp-pages-content textarea{max-height:100%;resize:none}
+.cp-fit .cp-pages-content .memory-scroll{overflow:visible;max-height:none}
+.cp-fit .cp-pages-content #memory-dump{white-space:pre-wrap;overflow-wrap:anywhere}
+.cp-fit .cp-pages-content .memory-panel{display:block!important;margin:0}
+.cp-fit .cp-page-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0;border-top:1px solid var(--border,#40526e);background:var(--surface,#17233b)}
+.cp-fit .cp-page-nav button{width:auto;flex:0 0 auto;min-width:64px;min-height:44px;font:inherit;padding:4px 10px}.cp-fit .cp-page-nav output{font-size:12px;white-space:nowrap;text-align:center;min-width:54px}
+/* Installer: fixed viewport with secondary instructions in the same paged dialog. */
+.cp-fit.cp-install main{width:100%;height:100%;min-height:0;max-width:900px;margin:auto;padding:0 8px;display:grid;grid-template-rows:44px auto minmax(0,1fr) 44px;gap:6px}
+.cp-fit.cp-install header{margin:0;min-width:0}.cp-fit.cp-install .brand{font-size:14px}.cp-fit.cp-install .mark{height:36px;width:36px}
+.cp-fit.cp-install .hero h1{font-size:27px;line-height:1.2;margin:4px 0}.cp-fit.cp-install .hero .eyebrow{margin:2px 0;font-size:10px}
+.cp-fit.cp-install .hero>p:last-child{font-size:12px;line-height:1.5;margin:6px 0}
+.cp-fit.cp-install .panel{min-height:0;padding:10px 12px;box-shadow:none;border-radius:14px;display:flex;flex-direction:column;justify-content:center}
+.cp-fit.cp-install .panel h2{font-size:16px}.cp-fit.cp-install .meter{margin-top:8px;height:6px;flex:none}
+.cp-fit.cp-install .panel #status{font-size:13px;line-height:1.4;margin:8px 0 4px;min-height:18px;overflow-wrap:anywhere}
+.cp-fit.cp-install .panel #meta{font-size:11px;line-height:1.4;margin-bottom:8px;overflow-wrap:anywhere}
+.cp-fit.cp-install #install,.cp-fit.cp-install #play{min-height:44px;padding:10px;font-size:14px;flex:none}
+.cp-fit.cp-install #check{min-height:36px;margin:0;padding:8px;font-size:12px}
+.cp-fit.cp-install footer{margin:0;display:flex;justify-content:center;align-items:center;gap:12px;font-size:10px}
+.cp-fit.cp-install footer button{width:auto;min-height:44px;padding:6px 14px;font-size:12px}
+.cp-fit.cp-install .cp-pages .steps{margin:0}.cp-fit.cp-install .cp-pages ol{list-style:none;padding:0}
+@media(orientation:landscape){
+ .cp-fit.cp-install main{grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);grid-template-rows:44px minmax(0,1fr) 44px;gap:6px 12px}
+ .cp-fit.cp-install header{grid-column:1/-1}.cp-fit.cp-install .hero{grid-column:1;align-self:center}
+ .cp-fit.cp-install .panel{grid-column:2;grid-row:2}.cp-fit.cp-install footer{grid-column:1/-1}
+}
+@media(max-height:650px){.cp-fit.cp-install .hero>p{display:none}.cp-fit.cp-install .hero h1{font-size:23px}}
+@media(prefers-reduced-motion:reduce){.cp-fit *{scroll-behavior:auto!important}}
+
+@media(orientation:landscape){.cp-game .play.immersive .gamepad{inset:var(--cp-safe-t) var(--cp-safe-r) calc(var(--cp-tools,53px) + var(--cp-safe-b)) var(--cp-safe-l);width:auto}}
+
+@media(orientation:landscape) and (max-height:360px){.cp-fit.cp-install main{grid-template-rows:32px minmax(0,1fr) 44px;gap:4px 12px}.cp-fit.cp-install .mark{width:30px;height:30px}.cp-fit.cp-install .panel{padding:6px 10px}.cp-fit.cp-install .panel #meta{display:none}.cp-fit.cp-install .panel #status{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}.cp-fit.cp-install #check{min-height:32px;height:32px;padding:4px}.cp-fit.cp-install .panelHead strong{padding:3px 6px}}

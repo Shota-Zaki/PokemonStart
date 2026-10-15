@@ -1,11 +1,11 @@
 /* Celio Pocket iPhone/iPad: game assets are cache-only; no ROM/SAV transport. */
 'use strict';
 importScripts('./assets.js');
-const SOURCE=self.CELIO_SOURCE,APP_REV='ipad-icloud-v2',ROOT=self.registration.scope,SCOPE=new URL(ROOT);
+const SOURCE=self.CELIO_SOURCE,APP_REV='viewport-v3',ROOT=self.registration.scope,SCOPE=new URL(ROOT);
 const CACHE_SHELL='celio-shell-'+SOURCE.revision+'-'+APP_REV;
 const CACHE_GAME='celio-game-'+SOURCE.revision+'-'+APP_REV;
 const DONE=new URL('.celio-ready',ROOT).href,local=path=>new URL(path||'./',ROOT).href;
-const SHELL=['','index.html','install.css','install.js','assets.js','manifest.webmanifest','icon.svg','sw.js','save-transfer.js','save-transfer.css'];
+const SHELL=['','index.html','install.css','install.js','assets.js','manifest.webmanifest','icon.svg','sw.js','save-transfer.js','save-transfer.css','viewport-fit.js','viewport-fit.css'];
 const GAME=['game.html',...SOURCE.files.map(([path])=>path).filter(path=>!['index.html','manifest.webmanifest','sw.js'].includes(path))];
 const shellURLs=new Set(SHELL.map(local)),gameURLs=new Set(GAME.map(local));
 const upstreamURLs=new Set(SOURCE.files.map(([path])=>SOURCE.rawBase+path));
